@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Práctica de Tablas de Multiplicar</title>
     <style>
         /* Regla global para asegurar que el padding no aumente el ancho de los elementos */
@@ -34,7 +34,7 @@
 
         h1, h2 {
             text-align: center;
-            color: #0056b3;
+            color: #264653;
             margin-top: 0;
             margin-bottom: 10px;
         }
@@ -57,7 +57,7 @@
             margin-top: 0;
             text-align: center;
             color: #333;
-            border-bottom: 2px solid #0056b3;
+            border-bottom: 2px solid #2a9d8f;
             padding-bottom: 5px;
             margin-bottom: 10px;
         }
@@ -121,7 +121,7 @@
             font-size: 1em;
             font-weight: bold;
             color: #fff;
-            background-color: #007bff;
+            background-color: #2a9d8f;
             border: none;
             border-radius: 5px;
             cursor: pointer;
@@ -130,7 +130,7 @@
         }
 
         .btn-validar:hover {
-            background-color: #0056b3;
+            background-color: #218278;
         }
 
         .btn-exportar {
@@ -139,7 +139,7 @@
             font-size: 1em;
             font-weight: bold;
             color: #fff;
-            background-color: #17a2b8;
+            background-color: #f4a261;
             border: none;
             border-radius: 5px;
             cursor: pointer;
@@ -148,21 +148,22 @@
         }
 
         .btn-exportar:hover {
-            background-color: #117a8b;
+            background-color: #e49251;
         }
 
         .btn-individual {
-            background-color: #6c757d;
+            background-color: #2a9d8f;
             color: white;
             border: none;
-            padding: 8px 10px;
+            padding: 6px 8px;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 0.9em;
+            font-size: 0.8em;
             margin-top: 10px;
             width: 100%;
+            transition: background-color 0.3s;
         }
-        .btn-individual:hover { background-color: #5a6268; }
+        .btn-individual:hover { background-color: #218278; }
 
         #resultado {
             text-align: center;
@@ -186,7 +187,7 @@
         .btn-examen {
             flex: 1;
             padding: 10px 20px;
-            background-color: #ffc107;
+            background-color: #e9c46a;
             color: #212529;
             border: none;
             border-radius: 5px;
@@ -197,13 +198,13 @@
             transition: background-color 0.3s;
         }
         .btn-examen:hover {
-            background-color: #e0a800;
+            background-color: #d9b45a;
         }
 
         .btn-inicio {
             flex: 1;
             padding: 10px 20px;
-            background-color: #6c757d;
+            background-color: #264653;
             color: white;
             border: none;
             border-radius: 5px;
@@ -214,11 +215,14 @@
             transition: background-color 0.3s;
         }
         .btn-inicio:hover {
-            background-color: #5a6268;
+            background-color: #1d3540;
         }
 
         /* Media Queries para móviles: Transforma los botones en una barra superior */
         @media (max-width: 768px) {
+            html {
+                scroll-padding-top: 75px; /* Espacio para el menú pegajoso al hacer scroll */
+            }
             body {
                 /* Revertir a layout de bloque normal para evitar problemas de flexbox en móviles */
                 display: block;
@@ -249,6 +253,38 @@
                 padding: 15px;
                 margin: 0 auto 20px auto; /* Centrar el contenedor y añadir margen inferior */
             }
+        }
+
+        /* Barra de navegación de scroll para tablas en móvil */
+        .scroll-nav-container {
+            display: none; /* Oculto por defecto, se activa con media query */
+            position: fixed;
+            top: 100px;
+            left: 5px;
+            width: auto;
+            background-color: transparent;
+            z-index: 999;
+        }
+
+        @media (max-width: 768px) {
+            .scroll-nav-container {
+                display: block;
+                top: 80px;
+            }
+        }
+
+        .scroll-nav-btn {
+            display: block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            margin-bottom: 5px;            background-color: #2a9d8f;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
         }
 
         .modal-overlay {
@@ -306,6 +342,7 @@
             width: 100%;
             padding: 8px;
             box-sizing: border-box;
+            font-size: 16px; /* Evitar zoom en móviles */
         }
 
         /* Estilos para la tabla de errores del examen */
@@ -396,6 +433,19 @@
         <!-- El contenido del examen se generará aquí -->
     </div>
 
+    <div class="scroll-nav-container" id="scroll-nav">
+        <button class="scroll-nav-btn" onclick="scrollToTabla(1)">1</button>
+        <button class="scroll-nav-btn" onclick="scrollToTabla(2)">2</button>
+        <button class="scroll-nav-btn" onclick="scrollToTabla(3)">3</button>
+        <button class="scroll-nav-btn" onclick="scrollToTabla(4)">4</button>
+        <button class="scroll-nav-btn" onclick="scrollToTabla(5)">5</button>
+        <button class="scroll-nav-btn" onclick="scrollToTabla(6)">6</button>
+        <button class="scroll-nav-btn" onclick="scrollToTabla(7)">7</button>
+        <button class="scroll-nav-btn" onclick="scrollToTabla(8)">8</button>
+        <button class="scroll-nav-btn" onclick="scrollToTabla(9)">9</button>
+        <button class="scroll-nav-btn" onclick="scrollToTabla(10)">10</button>
+    </div>
+
     <div class="modal-overlay hidden" id="modal-celebracion">
         <div class="modal-content" style="text-align: center;">
             <h2>¡Felicidades!</h2>
@@ -411,15 +461,15 @@
             <h2>Configuración del Examen</h2>
             <div class="form-group">
                 <label for="num-reactivos">Número de preguntas:</label>
-                <input type="number" id="num-reactivos" value="20" min="1" onkeydown="return event.key !== '-' && event.key !== 'e'">
+                <input type="number" inputmode="numeric" id="num-reactivos" value="20" min="1" onkeydown="return event.key !== '-' && event.key !== 'e'">
             </div>
             <div class="form-group">
                 <label for="tabla-inicio">De la tabla del:</label>
-                <input type="number" id="tabla-inicio" value="1" min="1" onkeydown="return event.key !== '-' && event.key !== 'e'">
+                <input type="number" inputmode="numeric" id="tabla-inicio" value="1" min="1" onkeydown="return event.key !== '-' && event.key !== 'e'">
             </div>
             <div class="form-group">
                 <label for="tabla-fin">Hasta la tabla del:</label>
-                <input type="number" id="tabla-fin" value="10" min="1" placeholder="Opcional" onkeydown="return event.key !== '-' && event.key !== 'e'">
+                <input type="number" inputmode="numeric" id="tabla-fin" value="10" min="1" placeholder="Opcional" onkeydown="return event.key !== '-' && event.key !== 'e'">
             </div>
             <button class="btn-validar" onclick="iniciarExamen()">Iniciar Examen</button>
         </div>
@@ -438,6 +488,7 @@
         let tablasCompletadas = new Array(11).fill(false);
         let preguntasExamen = [];
         let historialLog = "REGISTRO DE ACTIVIDAD\n=====================\n"; // Variable para acumular el log
+        let examenTablaInicio, examenTablaFin;
 
         // Escuchar combinación de teclas Alt + r para alternar (toggle) respuestas
         document.addEventListener('keydown', function(event) {
@@ -463,7 +514,7 @@
             let html = '';
 
             for (let i = 1; i <= 10; i++) {
-                html += `<div class="tabla-card">`;
+                html += `<div class="tabla-card" id="tabla-card-${i}">`;
                 html += `<h3>Tabla del ${i}</h3>`;
                 html += `<div id="intentos-tabla-${i}" class="mensaje-intentos">Pendiente de completar</div>`;
                 for (let j = 1; j <= 10; j++) {
@@ -508,6 +559,13 @@
             }
         }
 
+        function scrollToTabla(numeroTabla) {
+            const tabla = document.getElementById(`tabla-card-${numeroTabla}`);
+            if (tabla) {
+                tabla.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
         // Función para validar las respuestas del usuario
         function validarRespuestas() {
             let totalCorrectas = 0;
@@ -519,7 +577,7 @@
 
             // Mostrar el resultado final global
             const divResultado = document.getElementById('resultado');
-            divResultado.innerHTML = `Tu puntuación global es: <span style="color: #007bff;">${totalCorrectas}</span> de 100 correctas.`;
+            divResultado.innerHTML = `Tu puntuación global es: <span style="color: #2a9d8f;">${totalCorrectas}</span> de 100 correctas.`;
 
             // Si se completan las 100, mostrar la animación
             if (totalCorrectas === 100) {
@@ -631,6 +689,9 @@
                 return;
             }
 
+            examenTablaInicio = tablaInicio;
+            examenTablaFin = tablaFin;
+
             // Prevenir bucle infinito si se piden más preguntas de las posibles
             const maxPreguntasPosibles = (tablaFin - tablaInicio + 1) * 10;
             if (numPreguntas > maxPreguntasPosibles) {
@@ -642,6 +703,7 @@
             document.getElementById('examen-container').classList.remove('hidden');
             document.getElementById('btn-validar-menu').classList.add('hidden');
             document.getElementById('btn-practica').classList.remove('hidden');
+            document.getElementById('scroll-nav').classList.add('hidden');
             cerrarModalExamen();
             generarExamen(numPreguntas, tablaInicio, tablaFin);
         }
@@ -650,7 +712,14 @@
             preguntasExamen = [];
             const preguntasUnicas = new Set();
             const examenContainer = document.getElementById('examen-container');
-            let html = '<h1>Examen Personalizado</h1>';
+            let html = '<h1>Examen</h1>';
+
+            let descripcionExamen = `<p style="text-align: center; margin-bottom: 20px;">Resuelve las multiplicaciones de las tablas del ${tablaInicio}`;
+            if (tablaInicio !== tablaFin) {
+                descripcionExamen += ` al ${tablaFin}`;
+            }
+            descripcionExamen += `.</p>`;
+            html += descripcionExamen;
 
             let intentos = 0;
             const maxIntentos = 2000; // Límite de seguridad para evitar bucles infinitos
@@ -793,7 +862,11 @@
             }
 
             // Actualizar log
-            historialLog += `\n[${new Date().toLocaleTimeString()}] EXAMEN: ${correctas}/${preguntasExamen.length} aciertos.\n`;
+            let descripcionExamenLog = `Tablas del ${examenTablaInicio}`;
+            if (examenTablaInicio !== examenTablaFin) {
+                descripcionExamenLog += ` al ${examenTablaFin}`;
+            }
+            historialLog += `\n[${new Date().toLocaleTimeString()}] EXAMEN: ${correctas}/${preguntasExamen.length} aciertos. (${descripcionExamenLog})\n`;
             historialLog += `--------------------------------------------------\n`;
 
             // Cambiar botón
@@ -845,13 +918,14 @@
             document.getElementById('main-container').classList.remove('hidden');
             document.getElementById('btn-validar-menu').classList.remove('hidden');
             document.getElementById('btn-practica').classList.add('hidden');
+            document.getElementById('scroll-nav').classList.remove('hidden');
             examenContainer.classList.add('hidden');
             examenContainer.innerHTML = ''; // Limpiar contenido
             preguntasExamen = []; // Reiniciar el array de preguntas del examen
         }
 
         function exportarLog() {
-            descargarArchivo('registro_tablas.txt', historialLog);
+            descargarArchivo('Registro de actividad_tablas de multiplicar.txt', historialLog);
         }
 
         function descargarArchivo(nombre, contenido) {
